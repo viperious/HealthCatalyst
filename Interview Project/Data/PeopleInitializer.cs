@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using Interview_Project.Data.Models;
 
 namespace Interview_Project.Data
 {
-    public class PeopleInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<PeopleContext>
+    public class PeopleInitializer : DropCreateDatabaseIfModelChanges<PeopleContext>
     {
         protected override void Seed(PeopleContext context)
         {
@@ -15,7 +16,8 @@ namespace Interview_Project.Data
                     FirstName = "Brian",
                     LastName = "Cauley",
                     DateOfBirth = DateTime.Parse("09/07/1977"),
-                    ImageUrl = "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAOgAAAAJDYwMGJhMmU4LTU0NGUtNDhhYy1hMWQ2LTJlZmYwZjNkMWMxMw.jpg",
+                    ImageUrl =
+                        "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAOgAAAAJDYwMGJhMmU4LTU0NGUtNDhhYy1hMWQ2LTJlZmYwZjNkMWMxMw.jpg",
                     Addresses =
                     {
                         new Address
@@ -40,7 +42,7 @@ namespace Interview_Project.Data
                         new Interest {Name = "Football"},
                         new Interest {Name = "Xbox One"},
                         new Interest {Name = "C#"}
-                    },
+                    }
                 },
                 new Person
                 {
@@ -50,7 +52,7 @@ namespace Interview_Project.Data
                     ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
                     Addresses =
                     {
-                       new Address
+                        new Address
                         {
                             AddressType = AddressTypes.Shipping,
                             Line1 = "123 USA Drive",
@@ -64,15 +66,17 @@ namespace Interview_Project.Data
                         new Interest {Name = "Cooking"},
                         new Interest {Name = "Xbox One"},
                         new Interest {Name = "C#"}
-                    },
+                    }
                 },
-                new Person {FirstName = "Jill",
+                new Person
+                {
+                    FirstName = "Jill",
                     LastName = "Cauley",
                     DateOfBirth = DateTime.Parse("02/07/1998"),
                     ImageUrl = "http://russia-insider.com/sites/insider/files/hillary-clinton-thumbs-up.jpg",
                     Addresses =
                     {
-                       new Address
+                        new Address
                         {
                             AddressType = AddressTypes.Billing,
                             Line1 = "123 USA Drive",
@@ -86,16 +90,18 @@ namespace Interview_Project.Data
                         new Interest {Name = "Fishing"},
                         new Interest {Name = "Swimming"},
                         new Interest {Name = "Dancing"}
-                    },
+                    }
                 },
-                new Person {
+                new Person
+                {
                     FirstName = "Will",
                     LastName = "Cauley",
                     DateOfBirth = DateTime.Parse("06/07/1948"),
-                    ImageUrl = "http://media3.s-nbcnews.com/j/newscms/2015_50/1312506/151122-donald-trump-smiling-956a_6d624dc0061bbd1233cc33461649ea73.nbcnews-fp-1200-800.jpg",
+                    ImageUrl =
+                        "http://media3.s-nbcnews.com/j/newscms/2015_50/1312506/151122-donald-trump-smiling-956a_6d624dc0061bbd1233cc33461649ea73.nbcnews-fp-1200-800.jpg",
                     Addresses =
                     {
-                       new Address
+                        new Address
                         {
                             AddressType = AddressTypes.Billing,
                             Line1 = "Cauley Drive",
@@ -106,9 +112,8 @@ namespace Interview_Project.Data
                     },
                     Interests =
                     {
-                        new Interest {Name = "Money"},
-                        
-                    },
+                        new Interest {Name = "Money"}
+                    }
                 }
             };
 

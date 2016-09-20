@@ -10,4 +10,3 @@ namespace Interview_Project.Data
         public DbSet<Address> Addresses { get; set; }
     }
 }
-

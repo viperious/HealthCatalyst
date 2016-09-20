@@ -6,5 +6,5 @@
         public string Name { get; set; }
         public int Personid { get; set; }
         public virtual Person Person { get; set; }
-    } 
+    }
 }

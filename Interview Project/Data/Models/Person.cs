@@ -19,5 +19,5 @@ namespace Interview_Project.Data.Models
         public virtual DateTime DateOfBirth { get; set; }
         public virtual ICollection<Interest> Interests { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
-    }  
+    }
 }

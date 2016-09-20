@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Web;
+﻿using System.Threading;
 using System.Web.Mvc;
-using System.Web.Services;
-using Interview_Project.Data;
 using Interview_Project.Data.Agents;
 
 namespace Interview_Project.Controllers
@@ -20,12 +14,6 @@ namespace Interview_Project.Controllers
             return View();
         }
 
-        public class SearchObject
-        {
-            public string SearchValue { get; set; }
-            public bool IncludeDelay { get; set; }
-        }
-
         [HttpPost]
         public JsonResult GetPeople(SearchObject search)
         {
@@ -38,7 +26,11 @@ namespace Interview_Project.Controllers
             return Json(list);
         }
 
-
+        public class SearchObject
+        {
+            public string SearchValue { get; set; }
+            public bool IncludeDelay { get; set; }
+        }
     }
 
     public class SearchValues

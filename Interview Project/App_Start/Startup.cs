@@ -1,6 +1,4 @@
-﻿using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
-using Owin;
+﻿using Owin;
 
 namespace Interview_Project.App_Start
 {
@@ -8,7 +6,6 @@ namespace Interview_Project.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
-           
         }
     }
 }
