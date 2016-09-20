@@ -1,0 +1,132 @@
+﻿@using Interview_Project.Data.Models
+@{
+    ViewBag.Title = "People";
+}
+@section scripts
+{
+    <script>
+        $(document)
+            .ready(function () {
+                //your code here
+
+
+                $('#myForm')
+                    .submit(function (event) {
+                        event.preventDefault();
+
+                        var search = { searchValue: $.trim(this.searchValue.value), includeDelay: this.includeDelay.checked }
+
+                        if (search.includeDelay) {
+                            $('#loading').modal('show');
+                        }
+
+
+                        $.ajax({
+                            type: 'POST',
+                            data: JSON.stringify(search),
+                            url: '@Url.Action("GetPeople")',
+                            contentType: 'application/json;',
+                            dataType: 'json',
+                            error:
+
+                            function (xhr) {
+                                alert('Error: ' + xhr.statusText);
+                                if (search.includeDelay) {
+                                    $('#loading').modal('hide');
+                                }
+                            },
+                            success: function (result) {
+                                UpdateTable(result);
+                                if (search.includeDelay) {
+                                    $('#loading').modal('hide');
+                                }
+                                $('#people').modal('show');
+
+                            },
+                        });
+
+                       
+                    });
+
+                function isNullOrWhitespace( input ) {
+                    return !input || !input.trim();
+                }
+
+                function UpdateTable(model) {
+                    //Update model
+                    var html = '<table id="People"><tr><th>Name</th><th>Address</th><th>Interests</th></tr>';
+                    for (var i = 0, len = model.length; i < len; i++) {
+                        html += '<tr><td id="Picture"><img height="150" src="' + model[i].ImageUrl + '"/><br/>';
+                        html += model[i].FullName + ' (' + model[i].Age + ')</td>';
+                        html += '<td id="Addresses"><ul>';
+                        for (var j = 0, lenj = model[i].Addresses.length; j < lenj; j++) {                            
+                            var address = model[i].Addresses[j];
+                            html += '<li><b>' + address.AddressType + '</b>:<br/>'+ address.Line1;
+                            if (!isNullOrWhitespace(address.Line2)) {
+                                html += '<br/>' + address.Line2;
+                            }
+                            if (!isNullOrWhitespace(address.Line3)) {
+                                html += '<br/>' + address.Line3;
+                            }
+                            html += '<br/>' + address.City + ', ' + address.State + '  ' + address.PostalCode;
+                        }
+
+                        html += '</ul></td><td id="Interests"><ul>';
+                        for (var j = 0, lenj = model[i].Interests.length; j < lenj; j++) {
+                            var interest = model[i].Interests[j];
+                            html += '<li>' + interest.Name;
+                        }
+                        html += '</ul></td></tr>';
+                    }
+                    $('#results').html(html);
+                }
+            });
+
+    </script>
+}
+<h2>People Finder</h2>
+
+<form id="myForm">
+    <table>
+        <tr>
+            <td><input type="text" placeholder="Name Search Here" name="searchValue" required /> <input type="submit" value="Search" id="submit" name="submit" />
+                <Br /><input type="checkbox" name="includeDelay" /> Include load delay
+            </td>
+            <td>
+                People to Chose From:
+                <ul>
+                    @foreach (var person in ViewBag.People)
+                    {
+                        <li>@person.FullName</li>
+                    }
+                </ul>
+            </td>
+        </tr>
+    </table>
+    
+</form>
+
+@*<div id="results"></div>*@
+
+<div class="modal fade" id="loading">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="/Content/Loading.gif" alt ="Loading"/>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="people">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Your People</h4>
+            </div>
+            <div id="results" class="modal-body">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
